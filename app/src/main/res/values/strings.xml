@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">HW2</string>
+    <string name="app_name">Alarm</string>
+    <string name="on_switch_label">on</string>
+    <string name="off_switch_label">off</string>
+    <string name="finish_setting">Done</string>
+    <string name="default_time">00:00</string>
+    <string name="edit_button">setting</string>
 </resources>
