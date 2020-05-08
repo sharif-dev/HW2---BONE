@@ -12,6 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".ShakeService2"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".ShakeService"
+            android:exported="false" />
 
         <activity android:name=".RingtoneActivity" />
 

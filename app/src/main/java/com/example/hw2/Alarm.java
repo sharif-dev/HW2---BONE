@@ -5,11 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -36,7 +42,25 @@ public class Alarm extends AppCompatActivity {
     TextView timeOfAlarm;
     private PendingIntent pendingIntent;
     private AlarmManager alarmManager;
-
+    private ToggleButton toggleButtonShake;
+    private Service shakeService;
+    public Handler handler = new Handler(Looper.getMainLooper()){
+        @RequiresApi(api = Build.VERSION_CODES.P)
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == ShakeService.TURN_ON_SCREEN){
+                Log.d("ALARM", "handleMessage: turn on screen");
+//                WindowManager.LayoutParams params = getWindow().getAttributes();
+//                params.screenBrightness = 1;
+//                getWindow().setAttributes(params);
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+                window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+            }
+        }
+    };
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +70,9 @@ public class Alarm extends AppCompatActivity {
         timeOfAlarm = (TextView) findViewById(R.id.timeOfAlarm);
         editButton = (Button) findViewById(R.id.editAlarm);
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        toggleButtonShake = (ToggleButton)findViewById(R.id.toggleButtonShake);
+        ShakeService.handler = handler;
+
 
         InputStream inputStream = null;
         try {
@@ -97,5 +124,21 @@ public class Alarm extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        toggleButtonShake.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Intent intent = new Intent(getBaseContext(), ShakeService.class);
+                    intent.setAction(ShakeService.START_SERVICE);
+                    startService(intent);
+                }else {
+                    Intent intent = new Intent(getBaseContext(), ShakeService.class);
+                    intent.setAction(ShakeService.STOP_SERVICE);
+                    startService(intent);
+                }
+            }
+        });
+
     }
 }

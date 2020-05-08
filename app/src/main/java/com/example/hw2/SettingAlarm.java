@@ -34,7 +34,6 @@ public class SettingAlarm extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), Alarm.class);
                 try {
                     OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput(SettingAlarm.CACHE_FILE, Context.MODE_PRIVATE));
                     JSONObject jsonObject = new JSONObject();
@@ -45,7 +44,7 @@ public class SettingAlarm extends AppCompatActivity {
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }
-                startActivity(intent);
+                finish();
             }
         });
     }

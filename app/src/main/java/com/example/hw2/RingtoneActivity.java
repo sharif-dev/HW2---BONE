@@ -33,7 +33,9 @@ public class RingtoneActivity extends AppCompatActivity implements SensorEventLi
                 Log.d("SENSOR", "handleMessage: stop");
                 ringtone.setLooping(false);
                 ringtone.stop();
+                onStop();
             }
+            finish();
         }
     };
     Ringtone ringtone;
@@ -61,7 +63,7 @@ public class RingtoneActivity extends AppCompatActivity implements SensorEventLi
     public void onSensorChanged(SensorEvent event) {
         float speed = event.values[2];
         Log.d("SENSOR", "onSensorChanged: " + Float.toString(speed));
-        if (speed > DES_SPEED){
+        if (Math.abs(speed) > DES_SPEED){
             Message message = new Message();
             message.what = STOP_ALARM;
             handler.sendMessage(message);

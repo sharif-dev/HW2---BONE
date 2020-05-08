@@ -10,9 +10,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="274dp"
-        android:text="TextView"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="272dp"
+        android:text="@string/alarm"
+        android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

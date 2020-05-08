@@ -5,4 +5,5 @@
     <string name="finish_setting">Done</string>
     <string name="default_time">00:00</string>
     <string name="edit_button">setting</string>
+    <string name="alarm">ALARM</string>
 </resources>

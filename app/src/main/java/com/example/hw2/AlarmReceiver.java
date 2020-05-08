@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-public class AlarmReceiver extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, "Alarm! Wake up! Wake up!", Toast.LENGTH_LONG).show();
